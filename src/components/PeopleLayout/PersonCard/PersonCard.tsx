@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Person from './../../../model/person';
+import './PersonCard.css';
+import Auxiliary from '../../../containers/hoc/Auxiliary';
 
 export interface PersonCardProps {
   person: Person | undefined;
@@ -7,12 +9,21 @@ export interface PersonCardProps {
 
 export class PersonCard extends Component<PersonCardProps> {
   render() {
-    return (
-      <div>
+    const person = this.props.person;
+    let content = person ? (
+      <Auxiliary>
+        <header>
+    <b>{person.name} {person.surname}</b>
+        </header>
         <p>
-          {(this.props.person) ? Object.values(this.props.person).join(" ") : "Empty"}
+          Fecha de nacimiento: {person.bornDate}<br />
+          Género: {person.genre}<br />
         </p>
-      </div>
+      </Auxiliary>
+    ) : (
+      'No tenemos información de la persona'
     );
+
+    return <div className='PersonCard'>{content}</div>;
   }
 }

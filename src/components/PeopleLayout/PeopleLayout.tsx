@@ -1,37 +1,49 @@
 import React, { Component } from 'react';
+import Auxiliary from '../../containers/hoc/Auxiliary';
+import Person from '../../model/person';
 import {
   PersonPetitioner,
   PersonRequest
 } from '../../request/person/person-petitioner';
+import Title from './../../common/Title/Title';
+import CenterLayout from './../../containers/CenterLayout/CenterLayout';
 import { FilterPeopleForm } from './FilterPeopleForm/FilterPeopleForm';
-import Person from '../../model/person';
-import Auxiliary from '../../containers/hoc/Auxiliary';
+import './PeopleLayout.css';
 import { PersonCard } from './PersonCard/PersonCard';
 
 interface PeopleLayoutState {
   person: Person | undefined;
+  searched: boolean;
 }
 
 class PeopleLayout extends Component<{}, PeopleLayoutState> {
   state = {
-    person: undefined
+    person: undefined,
+    searched: false
   };
 
   formSubmitted = (personRequest: PersonRequest) => {
     PersonPetitioner.doRequest(personRequest)
-      .then(person =>
+      .catch(() => undefined)
+      .then((person: Person | undefined) =>
         this.setState({
-          person
+          person,
+          searched: true
         })
-      )
-      .catch(() => this.setState({ person: undefined }));
+      );
   };
 
   render() {
-    return (
-      <Auxiliary>
-        <FilterPeopleForm submitted={this.formSubmitted} />
+    const personCard = this.state.searched ? (
+      <CenterLayout>
         <PersonCard person={this.state.person} />
+      </CenterLayout>
+    ) : null;
+    return (
+      <Auxiliary class='PeopleLayout'>
+        <Title>Buscá a una Persona</Title>
+        <FilterPeopleForm submitted={this.formSubmitted} />
+        {personCard}
       </Auxiliary>
     );
   }

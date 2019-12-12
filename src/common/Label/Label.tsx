@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Label.css';
 
 export interface LabelProps {
   for: string;
@@ -8,7 +9,7 @@ export interface LabelProps {
 export class Label extends Component<LabelProps> {
   render() {
     return (
-      <label htmlFor={'#'.concat(this.props.for)}>{this.props.children}</label>
+      <label htmlFor={this.props.for} className="Label">{this.props.children}</label>
     );
   }
 }

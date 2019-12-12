@@ -1,0 +1,11 @@
+.Title {
+  margin-bottom: 20px;
+  text-align: center;
+  border: 3px double black;
+}
+
+.Title > h1 {
+  font-size: 40px;
+  font-family: 'Fira Code';
+  font-weight: normal;
+}

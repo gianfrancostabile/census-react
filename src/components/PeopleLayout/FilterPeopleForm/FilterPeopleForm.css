@@ -1,0 +1,4 @@
+.FilterPeopleForm {
+  display: flex;
+  flex-direction: column;
+}

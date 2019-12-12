@@ -1,12 +1,20 @@
 import React, { Component, MouseEventHandler } from 'react';
+import './Button.css';
 
 export interface ButtonProps {
-  children: string;
+  type: string;
   clicked: MouseEventHandler;
+  children: string;
 }
 
 export class Button extends Component<ButtonProps> {
   render() {
-    return <button onClick={this.props.clicked}>{this.props.children}</button>;
+    const classNameList = ['Button'];
+    classNameList.push(this.props.type);
+    return (
+      <button className={classNameList.join(' ')} onClick={this.props.clicked}>
+        {this.props.children}
+      </button>
+    );
   }
 }

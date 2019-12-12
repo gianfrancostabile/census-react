@@ -1,0 +1,6 @@
+.Label {
+  padding-right: 5px;
+
+  font-size: 1rem;
+  text-overflow: ellipsis;
+}

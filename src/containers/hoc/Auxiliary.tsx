@@ -1,4 +1,16 @@
-import { Props } from 'react';
+import React, { Component } from 'react';
 
-const Auxiliary = (props: Props<any>) => props.children as JSX.Element;
+interface AuxiliaryProps {
+  class?: string;
+}
+
+class Auxiliary extends Component<AuxiliaryProps> {
+  render() {
+    return this.props.class ? (
+      <div className={this.props.class}>{this.props.children}</div>
+    ) : (
+      this.props.children
+    );
+  }
+}
 export default Auxiliary;

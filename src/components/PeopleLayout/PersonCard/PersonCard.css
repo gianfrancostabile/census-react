@@ -1,0 +1,15 @@
+.PersonCard {
+  max-width: 500px;
+  height: auto;
+
+  margin: 20px 0;
+  padding: 20px 30px;
+
+  border: 1px solid black;
+
+  box-shadow: 4px 4px 9px rgb(204, 204, 204);
+}
+
+.PersonCard p {
+  margin-bottom: 0;
+}

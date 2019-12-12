@@ -1,0 +1,14 @@
+.Field {
+  height: 35px;
+
+  padding: 0 5px;
+
+  font-size: 15px;
+  text-overflow: ellipsis;
+}
+
+.Field:focus {
+  outline-style: none;
+  border: 1px solid rgb(160, 160, 160);
+  box-shadow: 0 0 3px black;
+}

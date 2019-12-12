@@ -9,6 +9,7 @@ import {
   Country,
   CountryPetitioner
 } from '../../../request/country/country-petitioner';
+import './FilterPeopleForm.css';
 
 export interface FilterPeopleFormProps {
   submitted: Function;
@@ -98,9 +99,9 @@ export class FilterPeopleForm extends Component<
       />
     ));
     return (
-      <div>
+      <div className="FilterPeopleForm">
         {mappedFields}
-        <Button clicked={this.formSubmitted}>Submit</Button>
+        <Button type="Info" clicked={this.formSubmitted}>Buscar</Button>
       </div>
     );
   }
