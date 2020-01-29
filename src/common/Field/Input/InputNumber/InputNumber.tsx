@@ -4,9 +4,11 @@ import './../../Field.css';
 
 export interface InputNumberProps extends InputProps {
   value: number;
+  minimum?: number;
+  maximum?: number;
 }
 
-export class InputNumber extends Component<InputNumberProps> {
+class InputNumber extends Component<InputNumberProps> {
   render() {
     return (
       <input
@@ -15,7 +17,17 @@ export class InputNumber extends Component<InputNumberProps> {
         type='number'
         value={this.props.value}
         onChange={this.props.changed}
+        onClick={
+          this.props.selectAll
+            ? event => event.currentTarget.select()
+            : () => {}
+        }
+        autoFocus={this.props.focus}
+        min={this.props.minimum}
+        max={this.props.maximum}
       />
     );
   }
 }
+
+export default InputNumber;

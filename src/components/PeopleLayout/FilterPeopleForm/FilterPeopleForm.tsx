@@ -1,25 +1,29 @@
 import React, { ChangeEvent, Component } from 'react';
 import { Button } from '../../../common/Button/Button';
 import { SelectProps } from '../../../common/Field/Select/Select';
-import {
-  LabelField,
+import LabelField, {
   LabelFieldProps
 } from '../../../common/LabelField/LabelField';
+import Message from '../../../common/Message/Message';
+import Auxiliary from '../../../containers/hoc/Auxiliary';
 import {
   Country,
   CountryPetitioner
 } from '../../../request/country/country-petitioner';
+import Spinner from './../../../common/Spinner/Spinner';
 import './FilterPeopleForm.css';
 
-export interface FilterPeopleFormProps {
+interface FilterPeopleFormProps {
   submitted: Function;
 }
 
-export interface FilterPeopleFormState {
+interface FilterPeopleFormState {
   fields: any;
+  waiting: boolean;
+  errorWaiting: boolean;
 }
 
-export class FilterPeopleForm extends Component<
+class FilterPeopleForm extends Component<
   FilterPeopleFormProps,
   FilterPeopleFormState
 > {
@@ -47,7 +51,10 @@ export class FilterPeopleForm extends Component<
         fieldProps: {
           id: 'ssn-text-number',
           value: 0,
-          changed: this.updateFieldValue
+          changed: this.updateFieldValue,
+          focus: true,
+          selectAll: true,
+          minimum: 0
         }
       },
       'country-select': {
@@ -60,24 +67,30 @@ export class FilterPeopleForm extends Component<
           options: []
         }
       }
-    }
+    },
+    waiting: true,
+    errorWaiting: false
   };
 
   componentDidMount() {
-    CountryPetitioner.doRequest().then((countries: Country[]) => {
-      const countriesListOption = countries.map((country: Country) => ({
-        value: country.isoCode,
-        name: country.name
-      }));
+    CountryPetitioner.doRequest()
+      .then((countries: Country[]) => {
+        const countriesListOption = countries.map((country: Country) => ({
+          value: country.isoCode,
+          name: country.name
+        }));
 
-      this.setState(previousState => {
-        const fields = { ...previousState.fields };
-        const fieldProps = fields['country-select'].fieldProps as SelectProps;
-        fieldProps.options = countriesListOption;
+        this.setState(previousState => {
+          const fields = { ...previousState.fields };
+          const fieldProps = fields['country-select'].fieldProps as SelectProps;
+          fieldProps.options = countriesListOption;
 
-        return { fields };
+          return { fields, waiting: false };
+        });
+      })
+      .catch(() => {
+        this.setState({ fields: [], waiting: false, errorWaiting: true });
       });
-    });
   }
 
   formSubmitted = () => {
@@ -87,22 +100,43 @@ export class FilterPeopleForm extends Component<
     });
   };
 
+  getContent = () => {
+    let content: JSX.Element;
+    if (this.state.waiting) {
+      content = <Spinner center />;
+    } else if (this.state.errorWaiting) {
+      content = (
+        <Message error>
+          Ocurrió un error, vuelva a intentarlo más tarde.
+        </Message>
+      );
+    } else {
+      const mappedFields = Object.values(
+        this.state.fields
+      ).map((field: LabelFieldProps) => (
+        <LabelField
+          key={field.fieldProps.id}
+          labelContent={field.labelContent}
+          fieldType={field.fieldType}
+          fieldProps={field.fieldProps}
+        />
+      ));
+
+      content = (
+        <Auxiliary>
+          {mappedFields}
+          <Button type='Info' clicked={this.formSubmitted}>
+            Buscar
+          </Button>
+        </Auxiliary>
+      );
+    }
+    return content;
+  };
+
   render() {
-    const mappedFields = Object.values(
-      this.state.fields
-    ).map((field: LabelFieldProps) => (
-      <LabelField
-        key={field.fieldProps.id}
-        labelContent={field.labelContent}
-        fieldType={field.fieldType}
-        fieldProps={field.fieldProps}
-      />
-    ));
-    return (
-      <div className="FilterPeopleForm">
-        {mappedFields}
-        <Button type="Info" clicked={this.formSubmitted}>Buscar</Button>
-      </div>
-    );
+    return <div className='FilterPeopleForm'>{this.getContent()}</div>;
   }
 }
+
+export default FilterPeopleForm;

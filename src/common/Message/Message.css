@@ -1,0 +1,14 @@
+.Message {
+  padding: 1.25rem 2rem;
+
+  background-color: rgb(245, 245, 245);
+  border: 1px solid rgb(230, 230, 230);
+
+  text-align: center;
+}
+
+.Message.Error {
+  color: rgb(114, 28, 36);
+  background-color: rgb(248, 215, 218);
+  border: 1px solid rgb(245, 198, 203);
+}

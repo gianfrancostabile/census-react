@@ -1,0 +1,32 @@
+.Navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 50px;
+
+  background-color: black;
+}
+
+.Navbar > a {
+  display: flex;
+  align-items: flex-end;
+
+  padding: 1rem;
+  height: 100%;
+
+  align-content: center;
+
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+
+  cursor: pointer;
+  transition-duration: 1s;
+}
+
+.Navbar > a:hover, .Navbar > a.active {
+  color: orange;
+  background-color: rgb(41, 41, 41);
+}

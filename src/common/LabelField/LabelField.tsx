@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Label } from './../Label/Label';
-import { FieldBuilder } from './../Field/FieldBuilder';
 import FieldProps from '../Field/field-props';
+import FieldBuilder from './../Field/FieldBuilder';
+import Label from './../Label/Label';
 import './LabelField.css';
 
 export interface LabelFieldProps {
@@ -10,7 +10,7 @@ export interface LabelFieldProps {
   fieldProps: FieldProps;
 }
 
-export class LabelField extends Component<LabelFieldProps> {
+class LabelField extends Component<LabelFieldProps> {
   render() {
     return (
       <div className="LabelField">

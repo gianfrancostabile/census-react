@@ -1,0 +1,85 @@
+.SpinnerContainer {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.SpinnerContainer.InlineBlock {
+  display: inline-block;
+}
+
+.SpinnerContainer:not(.InlineBlock).Center {
+  justify-content: center;
+}
+
+.Spinner {
+  display: inline-block;
+
+  width: 50px;
+  height: 50px;
+  
+  border-bottom: 2px solid rgb(129, 129, 129);
+  border-left: 2px solid rgb(129, 129, 129);
+  border-radius: 100%;
+
+  -moz-animation-name: rotation;
+  -moz-animation-duration: 1.25s;
+  -moz-animation-iteration-count: infinite;
+  -o-animation-name: rotation;
+  -o-animation-duration: 1.25s;
+  -o-animation-iteration-count: infinite;
+  -webkit-animation-name: rotation;
+  -webkit-animation-duration: 1.25s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: rotation;
+  animation-duration: 1.25s;
+  animation-iteration-count: infinite;
+}
+
+.Spinner::after {
+  content: '';
+
+  position: absolute;
+  top: 0;
+  left: -2px;
+  
+  width: 54px;
+  height: 30px;
+  
+  background-color: white;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(36deg);
+  }
+  20% {
+    transform: rotate(72deg);
+  }
+  30% {
+    transform: rotate(108deg);
+  }
+  40% {
+    transform: rotate(144deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  60% {
+    transform: rotate(216deg);
+  }
+  70% {
+    transform: rotate(252deg);
+  }
+  80% {
+    transform: rotate(288deg);
+  }
+  90% {
+    transform: rotate(324deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import Person from './../../../model/person';
-import './PersonCard.css';
 import Auxiliary from '../../../containers/hoc/Auxiliary';
+import Person from '../../../models/person';
+import './PersonCard.css';
 
-export interface PersonCardProps {
+interface PersonCardProps {
   person: Person | undefined;
 }
 
-export class PersonCard extends Component<PersonCardProps> {
+class PersonCard extends Component<PersonCardProps> {
   render() {
     const person = this.props.person;
     let content = person ? (
       <Auxiliary>
         <header>
-    <b>{person.name} {person.surname}</b>
+          {person.name} {person.surname}
         </header>
         <p>
-          Fecha de nacimiento: {person.bornDate}<br />
-          Género: {person.genre}<br />
+          Fecha de nacimiento: {person.bornDate}
+          <br />
+          Género: {person.genre}
+          <br />
         </p>
       </Auxiliary>
     ) : (
@@ -27,3 +29,5 @@ export class PersonCard extends Component<PersonCardProps> {
     return <div className='PersonCard'>{content}</div>;
   }
 }
+
+export default PersonCard;

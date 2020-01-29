@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import FieldProps from '../field-props';
-import { Option, OptionProps } from './Option/Option';
 import './../Field.css';
+import Option, { OptionProps } from './Option/Option';
 import './Select.css';
 
 export interface SelectProps extends FieldProps<HTMLSelectElement> {
   options: OptionProps[];
 }
 
-export class Select extends Component<SelectProps> {
+class Select extends Component<SelectProps> {
   render() {
     return (
       <select
         id={this.props.id}
-        className="Field Select"
+        className='Field Select'
         value={this.props.value}
         onChange={this.props.changed}
+        autoFocus={this.props.focus}
       >
         {this.props.options
           ? this.props.options.map((option: OptionProps) => (
@@ -30,3 +31,5 @@ export class Select extends Component<SelectProps> {
     );
   }
 }
+
+export default Select;

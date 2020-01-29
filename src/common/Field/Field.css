@@ -12,3 +12,13 @@
   border: 1px solid rgb(160, 160, 160);
   box-shadow: 0 0 3px black;
 }
+
+input.Field::-webkit-outer-spin-button,
+input.Field::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.Field[type='number'] {
+  -moz-appearance: textfield;
+}

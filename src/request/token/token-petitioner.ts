@@ -1,13 +1,16 @@
 import axios from 'axios';
+import store from './../../redux/store';
+import ActionType from '../../models/action-type';
+import { CENSUS_REST } from './../../models/base-url';
 
 class TokenPetitioner {
 
   static doRequest(): Promise<string> {
-    return new Promise(async (resolve, reject) => {
-      const token = this.getTokenCookie();
+    return new Promise((resolve, reject) => {
+      const token = store.getState().token;
       if (token === undefined) {
-        await axios.post(
-          'http://localhost:9090/census/authenticate',
+        axios.post(
+          `${CENSUS_REST}/authenticate`,
           {
             username: 'admin',
             password: 'password'
@@ -15,27 +18,20 @@ class TokenPetitioner {
           {
             headers: {
               'Content-Type': 'application/json'
-            }
+            },
+            timeout: 2500
           }
         )
           .then((response: any) => {
-            document.cookie = `token=${response.data}; max-age=300`;
-            resolve(response.data);
+            const token = response.data;
+            store.dispatch({ type: ActionType.SET_TOKEN, payload: token})
+            resolve(token);
           })
           .catch(() => reject('Fail to authenticate the session.'));
       } else {
         resolve(token);
       }
     });
-  }
-
-  private static getTokenCookie(): string | undefined {
-    let token = undefined;
-    const cookieToken = document.cookie.split(';').find(element => element.startsWith('token='));
-    if (cookieToken) {
-      token = cookieToken.replace('token=', '');
-    }
-    return token;
   }
 }
 

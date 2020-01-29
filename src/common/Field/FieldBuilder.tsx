@@ -1,33 +1,31 @@
 import React, { Component } from 'react';
-import { InputText, InputTextProps } from './Input/InputText/InputText';
-import { InputNumber, InputNumberProps } from './Input/InputNumber/InputNumber';
-import { Select, SelectProps } from './Select/Select';
 import Auxiliary from '../../containers/hoc/Auxiliary';
 import FieldProps from './field-props';
+import InputNumber, { InputNumberProps } from './Input/InputNumber/InputNumber';
+import Select, { SelectProps } from './Select/Select';
 
-export interface FieldBuilderProps {
+interface FieldBuilderProps {
   type: string;
   fieldProps: FieldProps;
 }
 
-export class FieldBuilder extends Component<FieldBuilderProps> {
+class FieldBuilder extends Component<FieldBuilderProps> {
   render() {
     let field = null;
 
     switch (this.props.type) {
-      case 'number':
-        field = (
-          <InputNumber {...(this.props.fieldProps as InputNumberProps)} />
-        );
-        break;
       case 'select':
         field = <Select {...(this.props.fieldProps as SelectProps)} />;
         break;
       default:
-        field = <InputText {...(this.props.fieldProps as InputTextProps)} />;
+        field = (
+          <InputNumber {...(this.props.fieldProps as InputNumberProps)} />
+        );
         break;
     }
 
     return <Auxiliary>{field}</Auxiliary>;
   }
 }
+
+export default FieldBuilder;

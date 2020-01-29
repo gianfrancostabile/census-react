@@ -5,8 +5,10 @@ export interface OptionProps {
   name: string | number;
 }
 
-export class Option extends Component<OptionProps> {
+class Option extends Component<OptionProps> {
   render() {
     return <option value={this.props.value}>{this.props.name}</option>;
   }
 }
+
+export default Option;

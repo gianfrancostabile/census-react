@@ -10,6 +10,11 @@
   box-shadow: 4px 4px 9px rgb(204, 204, 204);
 }
 
+.PersonCard header {
+  text-align: center;
+  font-weight: bold;
+}
+
 .PersonCard p {
   margin-bottom: 0;
 }
